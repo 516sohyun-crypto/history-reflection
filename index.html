@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e6f2ff">
+  <meta name="description" content="우리들의 역사 수업 소감 기록장">
+  <title>우리들의 역사 수업 소감 📖</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #493936;
+      --muted: #8b7f7b;
+      --sky: #dcecff;
+      --yellow: #fff0b5;
+      --cream: #fffcf5;
+      --line: #6b514b;
+      --mint: #e8f4dc;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #f5f9fa;
+      color: var(--ink);
+      font-family: "Gowun Dodum", sans-serif;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .page {
+      max-width: 780px;
+      min-height: 100vh;
+      margin: auto;
+      background: var(--cream);
+      box-shadow: 0 5px 40px #52647712;
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(#dcecff, #eff7ff 75%, #eaf5e4 75%);
+      padding: 22px 18px 35px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cloud {
+      position: absolute;
+      width: 72px;
+      height: 24px;
+      border-radius: 40px;
+      background: #fff;
+      opacity: .85;
+    }
+
+    .cloud::before, .cloud::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .cloud::before {
+      width: 35px;
+      height: 35px;
+      left: 12px;
+      top: -14px;
+    }
+
+    .cloud::after {
+      width: 28px;
+      height: 28px;
+      right: 10px;
+      top: -9px;
+    }
+
+    .cloud.left { top: 48px; left: 7%; }
+    .cloud.right { top: 75px; right: 5%; }
+
+    .characters {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: min(90%, 430px);
+      margin: 8px auto -16px;
+      filter: drop-shadow(0 5px 3px #8597a51c);
+    }
+
+    .hero-title {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      margin: auto;
+      padding: 22px 12px 24px;
+      border: 2.5px solid var(--line);
+      border-radius: 40% 40% 32px 32px / 22% 22% 32px 32px;
+      background: #fffdf8;
+      box-shadow: 4px 5px 0 #d3dfd1;
+    }
+
+    .hero-title h1 {
+      margin: 0 0 7px;
+      font-family: "Gaegu", cursive;
+      font-size: clamp(31px, 6vw, 45px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    .hero-title h1 span {
+      background: linear-gradient(transparent 65%, #fff0aa 65%);
+    }
+
+    .hero-title p {
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.9;
+    }
+
+    main {
+      padding: 22px clamp(14px, 4vw, 35px) 40px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin: 0 4px 8px;
+      font-weight: bold;
+    }
+
+    .progress-track {
+      height: 13px;
+      padding: 2px;
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      margin-bottom: 25px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #cbe5ff, #ffe4a2);
+      border-radius: 20px;
+      transition: width .25s;
+    }
+
+    .card {
+      position: relative;
+      margin: 27px 0;
+      padding: 27px 20px 23px;
+      background: #fffefd;
+      border: 1.8px solid #88746d;
+      border-radius: 25px;
+      box-shadow: 3px 4px 0 #e7e2d9;
+    }
+
+    .card-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      margin: -43px 0 19px -7px;
+      padding: 8px 22px;
+      border-radius: 50px;
+      background: var(--sky);
+      font-family: "Gaegu", cursive;
+      font-weight: 700;
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .card.yellow .card-title { background: var(--yellow); }
+    .card.mint .card-title { background: var(--mint); }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field { margin-bottom: 20px; }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .star { color: #d96864; }
+    .optional {
+      margin-left: 5px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: #e7eefb;
+      color: #667b99;
+      font-size: 11px;
+      font-weight: normal;
+    }
+
+    input, textarea {
+      display: block;
+      width: 100%;
+      border: 1.5px solid #c8babb;
+      border-radius: 14px;
+      padding: 13px 14px;
+      outline: none;
+      background: #fffcfd;
+      color: var(--ink);
+      font-family: "Gowun Dodum", sans-serif;
+      font-size: 14px;
+      transition: border-color .2s, background .2s;
+    }
+
+    input:focus, textarea:focus {
+      border: 2px solid #93b9e8;
+      background: #f7fbff;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #aa9e9f;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.85;
+    }
+
+    textarea.letter { min-height: 145px; }
+
+    .counter {
+      text-align: right;
+      margin-top: 5px;
+      color: #988c8d;
+      font-size: 11px;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 4px 0 10px;
+    }
+
+    .hidden-trap {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .submit {
+      display: block;
+      width: min(100%, 510px);
+      margin: 30px auto 10px;
+      padding: 16px 20px;
+      background: linear-gradient(#fff1b5, #ffe19c);
+      border: 2.5px solid var(--line);
+      border-radius: 50px;
+      color: var(--ink);
+      box-shadow: 3px 5px 0 #d3c4a8;
+      font-family: "Gaegu", cursive;
+      font-size: 27px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform .15s;
+    }
+
+    .submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+
+    .submit:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .notice {
+      text-align: center;
+      font-size: 12px;
+      color: #92847f;
+      line-height: 1.9;
+      margin: 17px auto;
+    }
+
+    .status {
+      display: none;
+      margin: 13px auto;
+      padding: 13px;
+      background: #fff0e7;
+      border-radius: 14px;
+      color: #a14e37;
+      text-align: center;
+      max-width: 550px;
+    }
+
+    .status.show { display: block; }
+
+    .done {
+      display: none;
+      text-align: center;
+      padding: 60px 20px 80px;
+    }
+
+    .done-icon { font-size: 65px; }
+
+    .done h2 {
+      font-family: "Gaegu", cursive;
+      font-size: 37px;
+      line-height: 1.25;
+    }
+
+    .done p {
+      line-height: 2.1;
+      margin-bottom: 26px;
+    }
+
+    .done .submit {
+      font-size: 22px;
+      width: 260px;
+    }
+
+    footer {
+      padding: 25px 10px 30px;
+      text-align: center;
+      color: #9f9290;
+      font-family: "Gaegu", cursive;
+      font-size: 17px;
+    }
+
+    @media (max-width: 500px) {
+      .hero { padding: 15px 10px 25px; }
+      .hero-title { padding: 19px 13px; }
+      .hero-title p { font-size: 12px; }
+      .card { padding: 24px 15px 18px; }
+      .card-title { font-size: 22px; padding: 8px 15px; }
+      .fields { gap: 9px; }
+      input, textarea { font-size: 13px; padding: 12px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="cloud left"></div>
+    <div class="cloud right"></div>
+
+    <!-- 직접 그린 오리지널 동물 마스코트 3마리 -->
+    <svg class="characters"
+         viewBox="0 0 460 190"
+         xmlns="http://www.w3.org/2000/svg"
+         role="img"
+         aria-label="책을 읽는 고양이, 곰, 토끼 친구들">
+
+      <!-- 왼쪽 고양이 -->
+      <g stroke="#604942" stroke-width="4"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M39 104 L40 44 L79 65 L111 40 L157 105"
+              fill="#fffdf9"/>
+        <ellipse cx="99" cy="116" rx="72" ry="67"
+                 fill="#fffdf9"/>
+        <path d="M35 67 Q53 31 84 47 L117 30
+                 Q146 30 161 65"
+              fill="#b8d8f6"/>
+        <path d="M60 60 Q87 81 111 49" fill="none"/>
+        <ellipse cx="77" cy="112" rx="4" ry="6" fill="#604942"/>
+        <ellipse cx="120" cy="112" rx="4" ry="6" fill="#604942"/>
+        <path d="M92 127 q7 8 14 0" fill="none"/>
+        <ellipse cx="55" cy="128" rx="12" ry="7"
+                 fill="#f7c5ba" stroke="none"/>
+        <ellipse cx="140" cy="128" rx="12" ry="7"
+                 fill="#f7c5ba" stroke="none"/>
+        <path d="M72 153 L99 160 L125 153 L125 180
+                 L99 171 L72 180 Z"
+              fill="#fff2ca"/>
+        <path d="M99 160 V171" fill="none"/>
+      </g>
+
+      <!-- 가운데 곰 -->
+      <g stroke="#604942" stroke-width="4"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="206" cy="55" r="23" fill="#fff"/>
+        <circle cx="295" cy="55" r="23" fill="#fff"/>
+        <ellipse cx="251" cy="113" rx="76" ry="72" fill="#fff"/>
+        <ellipse cx="223" cy="111" rx="4" ry="6" fill="#604942"/>
+        <ellipse cx="278" cy="111" rx="4" ry="6" fill="#604942"/>
+        <path d="M246 126 q5 5 10 0 M251 128 v7
+                 m-10 0 q10 12 20 0" fill="none"/>
+        <ellipse cx="206" cy="128" rx="13" ry="7"
+                 fill="#f7c5ba" stroke="none"/>
+        <ellipse cx="294" cy="128" rx="13" ry="7"
+                 fill="#f7c5ba" stroke="none"/>
+        <ellipse cx="204" cy="163" rx="17" ry="11" fill="#fff"/>
+        <ellipse cx="296" cy="163" rx="17" ry="11" fill="#fff"/>
+      </g>
+
+      <!-- 오른쪽 토끼 -->
+      <g stroke="#604942" stroke-width="4"
+         stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="352" cy="45" rx="17" ry="49"
+                 transform="rotate(-12 352 45)" fill="#fff8e9"/>
+        <ellipse cx="399" cy="43" rx="17" ry="49"
+                 transform="rotate(14 399 43)" fill="#fff8e9"/>
+        <ellipse cx="374" cy="116" rx="73" ry="67" fill="#fff8e9"/>
+        <ellipse cx="347" cy="114" rx="4" ry="6" fill="#604942"/>
+        <ellipse cx="396" cy="114" rx="4" ry="6" fill="#604942"/>
+        <path d="M366 131 q8 8 16 0 m-8 -2 v9" fill="none"/>
+        <ellipse cx="328" cy="132" rx="12" ry="7"
+                 fill="#f7c5ba" stroke="none"/>
+        <ellipse cx="416" cy="132" rx="12" ry="7"
+                 fill="#f7c5ba" stroke="none"/>
+        <ellipse cx="329" cy="164" rx="17" ry="11" fill="#fff8e9"/>
+        <ellipse cx="417" cy="164" rx="17" ry="11" fill="#fff8e9"/>
+      </g>
+
+      <g fill="#f6d66c">
+        <path d="M169 29 l5 10 11 2 -9 8 2 11 -9 -5 -10 5
+                 2 -11 -9 -8 12 -2 Z"/>
+        <circle cx="317" cy="17" r="5"/>
+        <circle cx="29" cy="23" r="4"/>
+      </g>
+    </svg>
+
+    <div class="hero-title">
+      <h1>📖 <span>우리들의 역사 수업 소감</span></h1>
+      <p>
+        함께한 역사 수업, 어땠나요?<br>
+        기억에 남는 순간들을 자유롭게 들려주세요!<br>
+        여러분의 이야기를 기다리고 있어요 ♡
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <div id="formArea">
+      <div class="progress-info">
+        <span>🐻 작성 중인 나의 이야기</span>
+        <span id="progressText">0% 완성</span>
+      </div>
+      <div class="progress-track"
+           role="progressbar"
+           aria-label="작성 진행률"
+           aria-valuemin="0"
+           aria-valuemax="100"
+           aria-valuenow="0"
+           id="progressTrack">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <form id="reflectionForm">
+        <section class="card">
+          <h2 class="card-title">🐻 1. 먼저 자기소개!</h2>
+
+          <div class="fields">
+            <div class="field">
+              <label for="studentId">
+                학번 <span class="star">*</span>
+              </label>
+              <input
+                id="studentId"
+                name="studentId"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                pattern="[0-9]{5}"
+                maxlength="5"
+                required
+                placeholder="예) 20101">
+            </div>
+
+            <div class="field">
+              <label for="studentName">
+                이름 <span class="star">*</span>
+              </label>
+              <input
+                id="studentName"
+                name="studentName"
+                type="text"
+                autocomplete="off"
+                maxlength="30"
+                required
+                placeholder="이름을 적어주세요">
+            </div>
+          </div>
+        </section>
+
+        <section class="card yellow">
+          <h2 class="card-title">
+            🐱 2. 우리가 함께한 역사 수업!
+          </h2>
+
+          <div class="field">
+            <label for="activity">
+              🌼 가장 인상 깊었던 활동은?
+              <span class="star">*</span>
+            </label>
+            <textarea
+              id="activity"
+              name="activity"
+              required
+              maxlength="2000"
+              placeholder="재미있었던 활동이나 특별히 기억나는 순간을 적어주세요!"></textarea>
+            <div class="counter">
+              <span data-count="activity">0</span> / 2000자
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="lesson">
+              🌼 기억에 남는 수업 내용과 그 이유는?
+              <span class="star">*</span>
+            </label>
+            <textarea
+              id="lesson"
+              name="lesson"
+              required
+              maxlength="2000"
+              placeholder="어떤 역사 이야기가 기억에 남았나요? 왜 기억에 남았는지도 궁금해요!"></textarea>
+            <div class="counter">
+              <span data-count="lesson">0</span> / 2000자
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="method">
+              🌼 나만의 역사 수업 방법이 있나요?
+              <span class="optional">선택</span>
+            </label>
+            <p class="hint">
+              나만의 역사 공부법이나 수업 아이디어가 있다면
+              알려주세요!
+            </p>
+            <textarea
+              id="method"
+              name="method"
+              maxlength="2000"
+              placeholder="재미있는 암기법, 나만의 공부 꿀팁 등! 없다면 넘어가도 좋아요."></textarea>
+            <div class="counter">
+              <span data-count="method">0</span> / 2000자
+            </div>
+          </div>
+        </section>
+
+        <section class="card mint">
+          <h2 class="card-title">
+            💌 3. 선생님께 하고 싶은 말
+          </h2>
+
+          <div class="field">
+            <label for="message">
+              선생님께 하고 싶은 말
+              <span class="star">*</span>
+            </label>
+            <textarea
+              class="letter"
+              id="message"
+              name="message"
+              maxlength="2000"
+              required
+              placeholder="좋았던 점, 아쉬웠던 점, 하고 싶은 이야기 모두 좋아요! 편하게 적어주세요 ♡"></textarea>
+            <div class="counter">
+              <span data-count="message">0</span> / 2000자
+            </div>
+          </div>
+        </section>
+
+        <!-- 자동화된 스팸 입력을 감지하는 숨겨진 칸 -->
+        <div class="hidden-trap" aria-hidden="true">
+          <label for="website">이 칸은 비워두세요</label>
+          <input id="website" name="website"
+                 type="text" tabindex="-1"
+                 autocomplete="off">
+        </div>
+
+        <button type="submit" class="submit" id="submitBtn">
+          ✉️ 내 역사 이야기 제출하기!
+        </button>
+
+        <div id="status" class="status"
+             role="status" aria-live="polite"></div>
+
+        <p class="notice">
+          🌱 작성 중인 내용은 현재 탭에 임시 저장돼요.<br>
+          🔒 제출한 소감은 담당 선생님이 확인합니다.<br>
+          <span class="star">*</span> 표시는 필수 입력 항목이에요.
+        </p>
+      </form>
+    </div>
+
+    <div class="done" id="doneArea" role="status">
+      <div class="done-icon">🐻💌🐱</div>
+      <h2>소중한 이야기가 도착했어요!</h2>
+      <p>
+        정성껏 작성해 줘서 정말 고마워요.<br>
+        여러분의 이야기가 선생님께 잘 전달되었어요!<br>
+        우리 함께한 역사 수업이<br>
+        오래도록 좋은 기억으로 남기를 바라요. 🌼
+      </p>
+      <button type="button"
+              class="submit"
+              id="newResponseBtn">
+        🌷 새로 작성하기
+      </button>
+    </div>
+  </main>
+
+  <footer>
+    ✦ Our Little History Story ✦<br>
+    2026 · 우리들의 역사 기록장
+  </footer>
+</div>
+
+<script>
+  "use strict";
+
+  const form = document.getElementById("reflectionForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusBox = document.getElementById("status");
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+  const progressTrack = document.getElementById("progressTrack");
+
+  const DRAFT_KEY = "history_reflection_draft_v1";
+
+  const requiredIds = [
+    "studentId",
+    "studentName",
+    "activity",
+    "lesson",
+    "message"
+  ];
+
+  const allIds = [
+    ...requiredIds,
+    "method"
+  ];
+
+  // 브라우저 탭 안에서만 임시 저장
+  function saveDraft() {
+    const draft = {};
+
+    allIds.forEach(id => {
+      draft[id] = document.getElementById(id).value;
+    });
+
+    try {
+      sessionStorage.setItem(
+        DRAFT_KEY,
+        JSON.stringify(draft)
+      );
+    } catch (error) {
+      // 임시 저장이 불가능해도 작성은 계속할 수 있음
+    }
+  }
+
+  function loadDraft() {
+    try {
+      const saved = sessionStorage.getItem(DRAFT_KEY);
+      if (!saved) return;
+
+      const draft = JSON.parse(saved);
+
+      allIds.forEach(id => {
+        if (typeof draft[id] === "string") {
+          document.getElementById(id).value = draft[id];
+        }
+      });
+    } catch (error) {
+      // 저장된 정보가 손상되었으면 새로 작성
+    }
+  }
+
+  function updateProgress() {
+    const completed = requiredIds.filter(id => {
+      return document.getElementById(id).value.trim() !== "";
+    }).length;
+
+    const percent = Math.round(
+      (completed / requiredIds.length) * 100
+    );
+
+    progressBar.style.width = percent + "%";
+    progressText.textContent = percent + "% 완성";
+    progressTrack.setAttribute("aria-valuenow", percent);
+
+    ["activity", "lesson", "method", "message"]
+      .forEach(id => {
+        const value = document.getElementById(id).value;
+        const counter = document.querySelector(
+          `[data-count="${id}"]`
+        );
+        counter.textContent = value.length;
+      });
+  }
+
+  function showStatus(text) {
+    statusBox.textContent = text;
+    statusBox.classList.add("show");
+  }
+
+  allIds.forEach(id => {
+    document.getElementById(id).addEventListener(
+      "input",
+      () => {
+        updateProgress();
+        saveDraft();
+        statusBox.classList.remove("show");
+      }
+    );
+  });
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+
+    if (submitBtn.disabled) return;
+
+    const data = {
+      studentId: document.getElementById("studentId")
+        .value.trim(),
+      studentName: document.getElementById("studentName")
+        .value.trim(),
+      activity: document.getElementById("activity")
+        .value.trim(),
+      lesson: document.getElementById("lesson")
+        .value.trim(),
+      method: document.getElementById("method")
+        .value.trim(),
+      message: document.getElementById("message")
+        .value.trim(),
+      website: document.getElementById("website")
+        .value
+    };
+
+    if (!/^[0-9]{5}$/.test(data.studentId)) {
+      showStatus("학번은 숫자 5자리로 입력해주세요.");
+      document.getElementById("studentId").focus();
+      return;
+    }
+
+    if (!data.studentName ||
+        !data.activity ||
+        !data.lesson ||
+        !data.message) {
+      showStatus("필수 항목을 모두 작성해주세요.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "🐻 소감을 전달하고 있어요...";
+    statusBox.classList.remove("show");
+
+    try {
+      const response = await fetch(
+        "/.netlify/functions/submit",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "제출에 실패했습니다."
+        );
+      }
+
+      try {
+        sessionStorage.removeItem(DRAFT_KEY);
+      } catch (error) {}
+
+      form.reset();
+      document.getElementById("formArea")
+        .style.display = "none";
+      document.getElementById("doneArea")
+        .style.display = "block";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+    } catch (error) {
+      console.error("Submission error:", error);
+
+      showStatus(
+        "제출 완료를 확인하지 못했어요. 잠시 후 선생님께 " +
+        "제출 여부를 확인해주세요. " +
+        "작성한 내용은 현재 화면에 남아 있어요."
+      );
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent =
+        "✉️ 내 역사 이야기 제출하기!";
+    }
+  });
+
+  document.getElementById("newResponseBtn")
+    .addEventListener("click", () => {
+      document.getElementById("doneArea")
+        .style.display = "none";
+      document.getElementById("formArea")
+        .style.display = "block";
+
+      form.reset();
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+  loadDraft();
+  updateProgress();
+</script>
+
+</body>
+</html>
